@@ -4,17 +4,25 @@
  */
 package JNotePad;
 
+import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 
 public class JNotePad extends JFrame {
@@ -26,6 +34,8 @@ public class JNotePad extends JFrame {
     private JMenuItem itemFont, itemZoomIn, itemZoomOut, itemRestore, itemViewHelp, itemSendFeedback, itemaboutNotepad;
     private JCheckBoxMenuItem itemWrap, itemStatusBar;
     private JTextArea txtEditor;
+    private JToolBar toolBar;
+    private JButton btNew,btOpen,btSave;
 
     int size = 20;
 
@@ -33,6 +43,7 @@ public class JNotePad extends JFrame {
         super(title);
         createMenu();
         createGUI();
+        createToolBar();
         processEvent();
         setSize(700, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -150,7 +161,95 @@ public class JNotePad extends JFrame {
                 txtEditor.setFont(new Font("Arial", Font.PLAIN, 20));
             }
         });
+        itemOpen.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openFile();
+            }
+        });
+        itemSave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SaveFile();
+            }
+
+            
+        });
+        itemSaveAs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SaveasFile();
+            }
+
+        });
+         btOpen.addActionListener((ActionEvent e) -> {
+            openFile();
+        });
+          btSave.addActionListener((ActionEvent e) -> {
+            SaveFile();
+        });
+
+         
+        
+        
     }
+     private void openFile() {
+               JFileChooser dlgFile = new JFileChooser();
+               if(dlgFile.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
+                   try{
+                       FileInputStream fis = new FileInputStream(dlgFile.getSelectedFile());
+                       byte[] b= new byte[fis.available()];
+                       fis.read(b);
+                       txtEditor.setText(new String(b));
+                       
+                   }catch(Exception ex){
+                       JOptionPane.showConfirmDialog(this, "Lỗi file");
+                   }
+            }
+    }
+     private void SaveFile() {
+                 JFileChooser dlgFile = new JFileChooser();
+               if(dlgFile.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
+                   try{
+                       FileOutputStream fos = new FileOutputStream(dlgFile.getSelectedFile());
+                       fos.write(txtEditor.getText().getBytes());
+                       fos.close();
+                   }catch (Exception ex){
+                       JOptionPane.showMessageDialog(this, "Lỗi ghi file");
+                       
+                   }
+               }
+     }
+     private void SaveasFile() {
+          JFileChooser dlgFile = new JFileChooser();
+               if(dlgFile.showOpenDialog(this)==JFileChooser.APPROVE_OPTION){
+                   try{
+                       FileOutputStream fos = new FileOutputStream(dlgFile.getSelectedFile());
+                       fos.write(txtEditor.getText().getBytes());
+                       fos.close();
+                   }catch (Exception ex){
+                       JOptionPane.showMessageDialog(this, "Lỗi ghi file");
+                       
+                   }
+        }
+           
+    }
+
+    private void createToolBar() {
+        toolBar = new JToolBar();
+        toolBar.add(btNew = new JButton("New"));
+        toolBar.add(btOpen = new JButton("Open"));
+        toolBar.add(btSave = new JButton("Save"));
+        
+        btNew.setIcon(new ImageIcon(this.getClass().getResource("/images/New.png")));
+        btOpen.setIcon(new ImageIcon(this.getClass().getResource("/images/open.png")));
+        btSave.setIcon(new ImageIcon(this.getClass().getResource("/images/Save.png")));
+        
+        
+        
+        add(toolBar,BorderLayout.NORTH);
+    }
+    
 }
     
     
