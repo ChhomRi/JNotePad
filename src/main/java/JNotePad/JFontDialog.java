@@ -121,6 +121,11 @@ public class JFontDialog extends JDialog{
             this.dispose();
             
         });
+          btCancel.addActionListener((e) -> {
+            this.dispose();
+            
+        });
+        
           
        
 
