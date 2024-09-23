@@ -28,6 +28,7 @@ public final class DemoJTable extends JFrame{
     public DemoJTable(){
         super("Demo JTable");
         createGUI();
+        processEvent();
         setSize(600,400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);

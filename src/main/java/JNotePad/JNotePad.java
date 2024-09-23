@@ -24,7 +24,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
-
 public class JNotePad extends JFrame {
 
     private JMenuBar mBar;
@@ -33,7 +32,7 @@ public class JNotePad extends JFrame {
     private JMenuItem itemUndo, itemCut, itemCopy, itemPast, itemDelete, itemSearch, itemFind, itemFindNext, itemFindPrevious, itemReplace, itemGoTo, itemSelectAll, itemTimeDate;
     private JMenuItem itemFont, itemZoomIn, itemZoomOut, itemRestore, itemViewHelp, itemSendFeedback, itemaboutNotepad;
     private JCheckBoxMenuItem itemWrap, itemStatusBar;
-    private JTextArea txtEditor;
+    JTextArea txtEditor;
     private JToolBar toolBar;
     private JButton btNew,btOpen,btSave;
 
@@ -188,6 +187,12 @@ public class JNotePad extends JFrame {
           btSave.addActionListener((ActionEvent e) -> {
             SaveFile();
         });
+         itemFont.addActionListener((e) -> {
+             JFontDialog dlgFont = new JFontDialog(this, true);
+             dlgFont.setLocationRelativeTo(this);
+             dlgFont.setVisible(true);
+                     
+         });
 
          
         
