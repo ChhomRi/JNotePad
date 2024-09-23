@@ -43,7 +43,8 @@ public final class DemoJTable extends JFrame{
         String[] columnName = {"Tên tài khoản","Số tiền"};
         Object[][] data = new Object[][]{
             {"Nguyễn Thị Chung", 35000000},
-            {"Nguyễn Xuân Phúc",34000000}
+            {"Nguyễn Xuân Phúc",34000000},
+            {"Chhom Ri",340000000}
                 
         };
         DefaultTableModel model = new DefaultTableModel(data,columnName);
